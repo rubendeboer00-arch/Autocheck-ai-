@@ -1,31 +1,22 @@
-# AutoCheck AI — Stap 2 RDW
+# AutoCheck AI — Stap 5: Risicoscore
 
-Deze versie bouwt verder op de werkende AutoCheck AI basis.
+Toegevoegd aan de bestaande AutoCheck AI-versie:
 
-## Wat is toegevoegd
-- De bestaande ene zoekbalk blijft ongewijzigd.
-- Tab **🇳🇱 Kenteken** haalt live voertuiggegevens uit de openbare RDW-dataset.
-- RDW-detailkaart met o.a.:
-  - merk / handelsbenaming
-  - voertuigsoort
-  - eerste toelating
-  - eerste toelating Nederland
-  - APK-vervaldatum
-  - kleuren
-  - inrichting
-  - cilinderinhoud en cilinders
-  - massa
-  - catalogusprijs / BPM indien geleverd
-  - tellerstandoordeel
-  - jaar laatste tellerstandregistratie
-  - tenaamstelling
-  - brandstof
-  - vermogen indien aanwezig
-- Duidelijke bronvermelding: RDW Open Data.
-- Geen extra zoekbalk en geen wijziging van het bestaande design.
+- AutoCheck AI Score 0–100.
+- Deelbeoordelingen:
+  - Kilometerverloop
+  - Schadehistorie
+  - Terugroepacties
+  - Historiedekking
+  - RDW-registratie
+- Score gebruikt alleen informatie die daadwerkelijk door de aangesloten bronnen is geleverd.
+- Ontbrekende data wordt niet automatisch als negatief beoordeeld.
+- Duidelijke uitleg waarom elk onderdeel een bepaalde score krijgt.
+- Waarschuwing dat de score geen garantie of technische keuring is.
+- Bestaande zoekbalk en vormgeving blijven behouden.
 
 ## Belangrijk
-RDW Open Data is een technische/registratiebron. Het levert niet automatisch een volledige historische kilometerlijn, schadehistorie of volledige VIN-koppeling. Daarvoor blijven aanvullende bronnen nodig.
+De recall-component blijft bewust voorzichtig: RDW publiceert terugroepacties, maar niet iedere openbare recall-record is een VIN-specifieke bevestiging. RDW geeft bovendien aan dat fabrikanten niet wettelijk verplicht zijn om volledige VIN-lijsten voor recalls aan te leveren.
 
 ## Deploy
-Vervang in GitHub alleen `index.html` door deze versie. Render zal daarna automatisch opnieuw deployen als Auto Deploy aanstaat.
+Vervang `index.html` in GitHub. Render deployt daarna automatisch als Auto Deploy aanstaat.
