@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AutoCheck AI — Voertuighistorie</title>
+<style>
+:root{--bg:#070a0f;--panel:#0e141c;--panel2:#111923;--line:#24303d;--text:#f5f7fa;--muted:#9aa7b5;--green:#64e6a4;--orange:#ffbd59;--red:#ff6f76;--blue:#78aefc}*{box-sizing:border-box}body{margin:0;background:radial-gradient(1000px 500px at 50% -100px,#1c2938 0,#070a0f 62%);color:var(--text);font-family:Inter,system-ui,-apple-system,Segoe UI,Arial,sans-serif}.wrap{max-width:1180px;margin:auto;padding:28px 20px 80px}.nav{display:flex;justify-content:space-between;align-items:center}.logo{font-weight:900;font-size:25px;letter-spacing:-.05em}.logo i{font-style:normal;color:var(--green)}.nav span{font-size:12px;color:var(--muted);border:1px solid var(--line);padding:7px 10px;border-radius:99px}.hero{text-align:center;padding:74px 0 35px}.hero .eyebrow{color:var(--green);font-size:12px;font-weight:800;letter-spacing:.13em;text-transform:uppercase}.hero h1{font-size:clamp(40px,6vw,68px);line-height:.98;letter-spacing:-.065em;margin:13px 0 18px}.hero p{max-width:690px;margin:auto;color:var(--muted);font-size:18px;line-height:1.6}.search{display:flex;max-width:850px;margin:32px auto 12px;padding:8px;background:rgba(14,20,28,.92);border:1px solid var(--line);border-radius:18px;box-shadow:0 25px 80px #0007}.search input{min-width:0;flex:1;border:0;background:transparent;color:#fff;padding:18px;font-size:20px;outline:0;text-transform:uppercase}.search button{border:0;background:var(--green);color:#06120b;font-weight:900;border-radius:13px;padding:0 25px;font-size:15px;cursor:pointer}.search button:disabled{opacity:.5}.hint{color:var(--muted);font-size:12px}.status{max-width:850px;margin:20px auto}.msg{padding:15px;border-radius:14px;border:1px solid var(--line);background:var(--panel2)}.msg.err{border-color:#6a2931;background:#2a1418;color:#ffc1c5}.msg.ok{border-color:#24543d;background:#0e251a;color:#bff2d6}.report{margin-top:32px}.heroCard,.card{background:linear-gradient(180deg,#111923,#0d131a);border:1px solid var(--line);border-radius:20px;padding:23px}.heroCard{display:flex;justify-content:space-between;gap:20px;align-items:flex-start}.carTitle{font-size:30px;font-weight:900;letter-spacing:-.04em}.vin{color:var(--muted);font-family:ui-monospace,monospace;font-size:12px;margin-top:7px}.pill{display:inline-flex;padding:7px 10px;border-radius:99px;background:#163326;color:var(--green);font-size:12px;font-weight:800}.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:16px}.full{grid-column:1/-1}.card h2{font-size:19px;margin:0 0 16px}.specs{display:grid;grid-template-columns:repeat(4,1fr);gap:9px}.spec{padding:12px;background:#0a1016;border:1px solid #1d2732;border-radius:12px}.spec small{display:block;color:var(--muted);font-size:11px;margin-bottom:4px}.spec b{font-size:14px}.list{margin:0;padding-left:20px}.list li{margin:10px 0;line-height:1.45}.good li::marker{color:var(--green)}.warn li::marker{color:var(--orange)}.timeline{display:grid;gap:9px}.event{display:flex;gap:14px;padding:13px;background:#0a1016;border:1px solid #1d2732;border-radius:12px}.date{font-weight:800;min-width:90px}.muted{color:var(--muted)}.sources{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.source{border:1px solid #1d2732;background:#0a1016;border-radius:13px;padding:14px}.source b{display:block;margin-bottom:5px}.available{color:var(--green)}.pending{color:var(--orange)}.locked{color:var(--red)}.pay{display:flex;justify-content:space-between;align-items:center;gap:20px;background:linear-gradient(135deg,#13271e,#101a22);border-color:#28533e}.price{font-size:29px;font-weight:900}.pay button{background:var(--green);border:0;border-radius:12px;padding:14px 20px;font-weight:900;cursor:pointer}.fine{font-size:11px;color:var(--muted);line-height:1.5}.hide{display:none}.footer{margin-top:35px;text-align:center;color:var(--muted);font-size:12px}.photoGrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}.photoGrid a{display:block;background:#0a1016;border:1px solid #1d2732;border-radius:12px;overflow:hidden;color:var(--muted);font-size:11px;text-decoration:none}.photoGrid img{width:100%;height:130px;object-fit:cover;display:block}.photoGrid span{display:block;padding:8px}.event a{color:var(--green);font-size:12px} @media(max-width:760px){.hero{padding-top:50px}.search{flex-direction:column}.search button{height:54px}.grid{grid-template-columns:1fr}.full{grid-column:auto}.specs{grid-template-columns:repeat(2,1fr)}.sources{grid-template-columns:1fr}.heroCard,.pay{flex-direction:column}.pay button{width:100%}}
+</style>
+<style>.search{align-items:center;gap:5px}.searchMode{display:flex;gap:3px;padding-left:5px}.searchMode .mode{border:0!important;background:transparent!important;color:var(--muted)!important;border-radius:9px!important;padding:10px 11px!important;font-weight:800!important;cursor:pointer}.searchMode .mode.active{background:#17221d!important;color:var(--green)!important}.search input{text-transform:uppercase}@media(max-width:700px){.search{flex-wrap:wrap}.searchMode{width:100%;justify-content:center}.search input{width:100%;flex-basis:100%}.search button#go{height:48px;width:100%;padding:0 15px}}</style></head>
+<body><div class="wrap">
+<div class="nav"><div class="logo">AutoCheck <i>AI</i></div><span>Vehicle History Platform</span></div>
+<section class="hero"><div class="eyebrow">Europese voertuighistorie</div><h1>Weet wat je koopt.</h1><p>Controleer een auto op basis van het VIN. AutoCheck AI combineert voertuiggegevens, beschikbare historie en technische kennis in één begrijpelijk rapport.</p>
+<div class="search"><div class="searchMode"><button id="modeVin" class="mode active" type="button">🇪🇺 VIN</button><button id="modePlate" class="mode" type="button">🇳🇱 Kenteken</button></div><input id="vin" maxlength="17" placeholder="Vul 17-cijferige VIN in" autocomplete="off"><button id="go">Gratis check</button></div><div id="searchHint" class="hint">VIN: 17 tekens · letters I, O en Q zijn niet toegestaan</div></section>
+<div id="status" class="status"></div><section id="report" class="report hide"></section>
+<div class="footer">AutoCheck AI toont alleen gegevens die door een bron beschikbaar zijn. Geen gevonden registratie betekent niet automatisch dat een voertuig schadevrij is.</div>
+</div>
+<script>
+const $=id=>document.getElementById(id);const vin=$('vin'),go=$('go'),status=$('status'),report=$('report'),modeVin=$('modeVin'),modePlate=$('modePlate'),searchHint=$('searchHint');let lookupMode='vin';
+const PAYMENT={storeUrl:'',productId:'',price:'7.95'};
+function checkoutUrl(v){ if(!PAYMENT.storeUrl||!PAYMENT.productId) return ''; const base=PAYMENT.storeUrl.replace(/\/$/,''); return `${base}/checkout/?add-to-cart=${encodeURIComponent(PAYMENT.productId)}&quantity=1&autocheck_vin=${encodeURIComponent(v)}`; }
+function pay(v){ const u=checkoutUrl(v); if(u){ window.location.href=u; } else { alert('De betaalpagina is nog niet ingesteld. Open index.html en vul PAYMENT.storeUrl en PAYMENT.productId in.'); } }
+const demo={
+ 'WDD2040771A123456':{make:'Mercedes-Benz',model:'C 63 AMG W204',year:2008,engine:'6.2 V8 M156',fuel:'Benzine',power:'457 pk / 336 kW',torque:'600 Nm',drive:'Achterwielaandrijving',gearbox:'7-traps AMG Speedshift',body:'Sedan',country:'Duitsland (opgegeven voorbeeld)',source:'Demo-profiel'},
+ 'WVWZZZ1KZAW000001':{make:'Volkswagen',model:'Golf',year:2010,engine:'Onbekend',fuel:'Onbekend',power:'Niet beschikbaar',torque:'Niet beschikbaar',drive:'Niet beschikbaar',gearbox:'Niet beschikbaar',body:'Niet beschikbaar',country:'Niet beschikbaar',source:'Demo-profiel'}
+};
+const profiles=[{match:/mercedes.*c ?63/i,pros:['Sterke atmosferische V8 met directe gasrespons','Hoge prestaties en karaktervolle aandrijflijn','Achterwielaandrijving','Goede liefhebberswaarde bij aantoonbaar onderhoud','Uitgebreide aftermarket- en specialistkennis beschikbaar'],warn:['Controleer bekende M156-motorpunten voor het specifieke bouwjaar','Controleer lekkages en koelcircuit','Controleer klepmechanisme/kleppentrein en onderhoudshistorie','Controleer automaat, differentieel en aandrijfassen','Let op leeftijdsslijtage van rubbers, slangen en koeling'],maint:['Controleer facturen en onderhoudsboekjes','Koude start en volledige proefrit uitvoeren','Motorolie, lekkages en koelvloeistof controleren','Laat een specialistische diagnose uitvoeren bij aankoop'],test:['Koude start','Stationair luisteren naar mechanische geluiden','Automaat rustig én onder belasting testen','Remmen en onderstel controleren','Diagnose uitlezen vóór aankoop']}];
+function clean(s){return s.toUpperCase().replace(/[^A-Z0-9]/g,'')}function valid(s){return /^[A-HJ-NPR-Z0-9]{17}$/.test(s)}
+function setStatus(t,kind=''){status.innerHTML=`<div class="msg ${kind}">${t}</div>`}
+async function publicDecode(v){
+  // Eerst onze eigen backend: hier blijft de GetCarAPI sleutel geheim.
+  try{
+    const r=await fetch(`/api/vin/${encodeURIComponent(v)}`,{headers:{Accept:'application/json'}});
+    if(r.ok){
+      const j=await r.json();
+      if(j && j.data){
+        const d=j.data;
+        const veh=d.vehicle||{};
+        return {
+          make:veh.make||veh.brand||veh.manufacturer,
+          model:veh.model||veh.modelName,
+          year:veh.year||veh.modelYear||veh.productionYear,
+          engine:veh.engine||veh.engineName,
+          fuel:veh.fuel||veh.fuelType,
+          power:veh.power||veh.powerHp,
+          torque:veh.torque||veh.torqueNm,
+          drive:veh.drive||veh.drivetrain||veh.driveType,
+          gearbox:veh.gearbox||veh.transmission,
+          body:veh.body||veh.bodyType||veh.bodyClass,
+          country:veh.country||veh.registrationCountry,
+          source:'GetCarAPI',
+          history:d
+        };
+      }
+    }
+  }catch(e){}
+
+  // Fallback voor de gratis demo wanneer de backend/API nog niet is ingesteld.
+  const urls=[`https://db.vin/api/v1/vin/${encodeURIComponent(v)}`,`https://vinwhere.com/api/v1/decode?vin=${encodeURIComponent(v)}`];
+  for(const u of urls){
+    try{
+      const r=await fetch(u,{headers:{Accept:'application/json'}});
+      if(!r.ok)continue;
+      const j=await r.json();const d=j.data||j.decode||j;
+      const x={make:d.brand||d.make||d.manufacturer,model:d.model||d.modelName,year:d.year||d.modelYear||d.productionYear,engine:d.engine||d.engineName,fuel:d.fuelType||d.fuel,drive:d.driveType||d.drivetrain,gearbox:d.transmission||d.gearbox,body:d.bodyType||d.bodyClass,power:d.power||d.powerHp,torque:d.torque||d.torqueNm,country:d.registrationCountry||d.plantCountry,source:u.includes('db.vin')?'DB.VIN':'VinWhere'};
+      if(x.make||x.model)return x;
+    }catch(e){}
+  }
+  throw new Error('VIN niet gevonden');
+}
+function profile(x){return profiles.find(p=>p.match.test(`${x.make||''} ${x.model||''}`))}
+function V(x){return x==null||x===''?'Niet beschikbaar':x}
+
+function historySummary(h){
+  if(!h) return {
+    km:'Niet beschikbaar', accidents:'Niet beschikbaar', auctions:'Niet beschikbaar',
+    photos:'Niet beschikbaar', events:'Niet beschikbaar', salvage:'Niet beschikbaar'
+  };
+  const observations=h.observations||h.mileage||h.odometer||[];
+  const accidents=h.accidents||[];
+  const auctions=h.auctionSales||[];
+  const photos=h.photos||[];
+  const events=h.events||[];
+  const salvage=h.salvage;
+  return {
+    km:Array.isArray(observations)&&observations.length?observations.length+' historische observaties gevonden':'Geen kilometerobservaties gevonden',
+    accidents:accidents.length?accidents.length+' schade/ongeval-record(s) gevonden':'Geen schade-/ongevalsrecord gevonden',
+    auctions:auctions.length?auctions.length+' veilingrecord(s) gevonden':'Geen veilingrecord gevonden',
+    photos:photos.length?photos.length+' historische foto(s) gevonden':'Geen historische foto’s gevonden',
+    events:events.length?events.length+' historische gebeurtenis(sen) gevonden':'Geen gebeurtenissen gevonden',
+    salvage:salvage?'Salvage/total-loss record gevonden':'Geen salvage/total-loss record'
+  };
+}
+function esc(v){return String(v==null?'Niet beschikbaar':v).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function dateText(v){if(!v)return 'Datum niet beschikbaar';const d=new Date(v);return isNaN(d.getTime())?esc(v):d.toLocaleDateString('nl-NL')}
+function field(obj, keys){for(const k of keys){if(obj&&obj[k]!==undefined&&obj[k]!==null&&obj[k]!=='')return obj[k]}return null}
+function detailRows(items, fields, empty){if(!Array.isArray(items)||!items.length)return `<p class="muted">${empty}</p>`;return `<div class="timeline">${items.map(it=>`<div class="event"><div class="date">${esc(dateText(field(it,['date','at','saleDate','listedAt','createdAt','observedAt','timestamp'])))}</div><div>${fields.map(([label,keys])=>{const val=field(it,keys);return val==null?'':`<div><b>${esc(label)}:</b> ${esc(val)}</div>`}).join('')||'<span class="muted">Record gevonden; bron bevat geen verdere zichtbare velden.</span>'}${field(it,['url','sourceUrl','listingUrl'])?`<div><a href="${esc(field(it,['url','sourceUrl','listingUrl']))}" target="_blank" rel="noopener noreferrer">Bron openen</a></div>`:''}</div></div>`).join('')}</div>`}
+function historyDetails(h){if(!h)return '';const vehicle=h.vehicle||{};const cards=[];
+const listings=h.listings||[];const observations=h.observations||[];const owners=h.ownerChanges||[];const events=h.events||[];const auctions=h.auctionSales||[];const accidents=h.accidents||[];const photos=h.photos||[];
+if(listings.length)cards.push(`<div class="card"><h2>Advertentiehistorie (${listings.length})</h2>${detailRows(listings,[['Prijs',['price','askingPrice','amount','priceEur']],['Kilometerstand',['mileage','odometer','km']],['Locatie',['location','country']],['Bron',['provider','source','platform']]],'Geen advertenties gevonden.')}</div>`);
+if(observations.length)cards.push(`<div class="card"><h2>Kilometer- en prijswaarnemingen (${observations.length})</h2>${detailRows(observations,[['Kilometerstand',['mileage','odometer','km']],['Prijs',['price','amount']],['Valuta',['currency']],['Bron',['source','provider']]],'Geen waarnemingen gevonden.')}</div>`);
+if(owners.length)cards.push(`<div class="card"><h2>Eigenaar-/registratiewijzigingen (${owners.length})</h2>${detailRows(owners,[['Type',['type','event','description','note']],['Land',['country']],['Bron',['source']]],'Geen wijzigingen gevonden.')}</div>`);
+if(events.length)cards.push(`<div class="card"><h2>Gebeurtenissen (${events.length})</h2>${detailRows(events,[['Gebeurtenis',['type','event','title','description','note']],['Bron',['source','provider']]],'Geen gebeurtenissen gevonden.')}</div>`);
+if(auctions.length)cards.push(`<div class="card"><h2>Veilinghistorie (${auctions.length})</h2>${detailRows(auctions,[['Veiling',['venue','auction','provider']],['Verkoopbedrag',['amount','price','salePrice']],['Valuta',['currency']],['Kilometerstand',['mileage','odometer','km']]],'Geen veilingrecords gevonden.')}</div>`);
+if(accidents.length)cards.push(`<div class="card"><h2>Schade-/ongevalsrecords (${accidents.length})</h2>${detailRows(accidents,[['Ernst',['severity','level']],['Locatie schade',['area','damageArea','location']],['Omschrijving',['description','note','type']],['Bron',['source','provider']]],'Geen schade-/ongevalsrecords gevonden.')}</div>`);
+if(h.salvage)cards.push(`<div class="card"><h2>Salvage / total loss</h2>${detailRows([h.salvage],[['Status',['status','type']],['Datum',['date','at']],['Bron',['source','provider']]],'Geen record.')}</div>`);
+if(photos.length)cards.push(`<div class="card full"><h2>Historische foto’s (${photos.length})</h2><div class="photoGrid">${photos.map(ph=>{const u=field(ph,['url','photoUrl','image','src']);return u?`<a href="${esc(u)}" target="_blank" rel="noopener noreferrer"><img loading="lazy" src="${esc(u)}" alt="Historische voertuigfoto"/><span>${esc(field(ph,['source','provider','type'])||'Bronfoto')}</span></a>`:''}).join('')}</div></div>`);
+return cards.length?`<div class="grid">${cards.join('')}</div>`:`<div class="card full"><h2>Beschikbare historie</h2><p class="muted">GetCarAPI heeft voor deze VIN geen advertenties, kilometerwaarnemingen, gebeurtenissen, veilingen, schadegegevens of foto's teruggegeven. Dat betekent niet automatisch dat deze informatie niet bestaat.</p></div>`;
+}
+function render(x,v){const p=profile(x);report.innerHTML=`<div class="heroCard"><div><div class="carTitle">${V(x.make)} ${V(x.model)}</div><div class="vin">${v}</div></div><span class="pill">Basis voertuigcheck voltooid</span></div>
+<div class="grid"><div class="card full"><h2>Voertuiggegevens</h2><div class="specs">${[['Bouwjaar',x.year],['Motor',x.engine],['Brandstof',x.fuel],['Vermogen',x.power],['Koppel',x.torque],['Aandrijving',x.drive],['Versnellingsbak',x.gearbox],['Carrosserie',x.body],['Land',x.country]].map(([a,b])=>`<div class="spec"><small>${a}</small><b>${V(b)}</b></div>`).join('')}</div></div>
+<div class="card full"><h2>Databronnen</h2><div class="sources"><div class="source"><b>VIN decoder</b><span class="available">✓ ${V(x.source)}</span><div class="fine">Voertuigidentificatie en technische basisvelden.</div></div><div class="source"><b>Nederlandse RDW</b><span class="pending">○ Alleen wanneer een NL-kenteken aan de VIN kan worden gekoppeld.</span><div class="fine">RDW stelt voertuig-, keurings- en recallgegevens als open data beschikbaar.</div></div><div class="source"><b>Europese historie</b><span class="pending">○ Externe commerciële databron nog niet aangesloten.</span><div class="fine">Voor km-, schade-, diefstal- en importgegevens zijn gelicentieerde bronnen nodig.</div></div></div></div>
+${p?`<div class="card"><h2>🟢 Pluspunten</h2><ul class="list good">${p.pros.map(i=>`<li>${i}</li>`).join('')}</ul></div><div class="card"><h2>🟠 Technische aandachtspunten</h2><ul class="list warn">${p.warn.map(i=>`<li>${i}</li>`).join('')}</ul></div><div class="card"><h2>Onderhoud</h2><ul class="list">${p.maint.map(i=>`<li>${i}</li>`).join('')}</ul></div><div class="card"><h2>Proefrit-check</h2><ul class="list">${p.test.map(i=>`<li>${i}</li>`).join('')}</ul></div>`:`<div class="card full"><h2>AutoCheck AI analyse</h2><p class="muted">Voor dit model is nog geen gecontroleerd technisch profiel geladen. AutoCheck AI verzint geen zwakke punten.</p></div>`}
+<div class="card full"><h2>Historie</h2><div class="timeline">
+<div class="event"><div class="date">KM</div><div><b>${historySummary(x.history).km}</b><div class="muted">Aantal beschikbare historische kilometer-/observatieregistraties.</div></div></div>
+<div class="event"><div class="date">SCH</div><div><b>${historySummary(x.history).accidents}</b><div class="muted">Alleen tonen wanneer de aangesloten bron dit record daadwerkelijk levert.</div></div></div>
+<div class="event"><div class="date">VEILING</div><div><b>${historySummary(x.history).auctions}</b><div class="muted">Historische veilingen indien aanwezig.</div></div></div>
+<div class="event"><div class="date">FOTO</div><div><b>${historySummary(x.history).photos}</b><div class="muted">Historische advertentie-/veilingfoto’s indien beschikbaar.</div></div></div>
+<div class="event"><div class="date">EVENT</div><div><b>${historySummary(x.history).events}</b><div class="muted">Historische gebeurtenissen uit de aangesloten bron.</div></div></div>
+<div class="event"><div class="date">SALVAGE</div><div><b>${historySummary(x.history).salvage}</b><div class="muted">Geen record betekent niet automatisch dat de auto schadevrij is.</div></div></div>
+</div></div>
+${historyDetails(x.history)}
+<div class="card full pay"><div><div class="price">Volledig rapport €7,95</div><div class="muted">Historie + kilometerlijn + schade + import + recalls + technische analyse, zodra de gelicentieerde bronnen zijn aangesloten.</div></div><button onclick="pay('${v}')">Volledig rapport openen</button></div>
+<div class="card full"><h2>Betaling</h2><p class="fine">De knop kan rechtstreeks naar jouw WooCommerce-checkout gaan. De VIN wordt als <code>autocheck_vin</code> meegestuurd. Voeg de meegeleverde WordPress-code toe om de VIN aan de bestelling te bewaren.</p></div><div class="card full"><h2>API-koppeling</h2><p class="fine">De website is voorbereid op een beveiligde backend. Zet <code>GETCARAPI_API_KEY</code> als server environment variable. De sleutel staat dan niet in de browser.</p></div><div class="card full"><h2>Rapportstatus</h2><p class="fine">Deze versie is de productarchitectuur en werkende basis. Een echt volledig rapport kan pas echte historische gebeurtenissen tonen wanneer AutoCheck AI hiervoor gelicentieerde databronnen/API's heeft. De site toont daarom bewust geen verzonnen schadevrije- of kilometerclaims.</p></div></div>`;report.classList.remove('hide')}
+function setMode(m){lookupMode=m;modeVin.classList.toggle('active',m==='vin');modePlate.classList.toggle('active',m==='plate');vin.value='';vin.maxLength=m==='vin'?17:8;vin.placeholder=m==='vin'?'Vul 17-cijferige VIN in':'Vul Nederlands kenteken in, bijvoorbeeld 67-ZK-JR';searchHint.textContent=m==='vin'?'VIN: 17 tekens · letters I, O en Q zijn niet toegestaan':'Kenteken: Nederlands kenteken, met of zonder streepjes';setStatus('')}
+modeVin.onclick=()=>setMode('vin');modePlate.onclick=()=>setMode('plate');
+async function search(){const value=clean(vin.value);vin.value=value;report.classList.add('hide');
+if(lookupMode==='vin'){if(!valid(value)){setStatus('Vul een geldige VIN van precies 17 tekens in.','err');return}go.disabled=true;setStatus('VIN wordt gecontroleerd…');try{let x=await publicDecode(value);render(x,value);setStatus('Voertuig gevonden. De basischeck is klaar.','ok')}catch(e){setStatus('Deze VIN kon via de beschikbare openbare decoder niet worden uitgelezen.','err')}finally{go.disabled=false};return}
+const plate=value.replace(/[^A-Z0-9]/g,'');if(!/^[A-Z0-9]{6}$/.test(plate)){setStatus('Vul een geldig Nederlands kenteken in, bijvoorbeeld 67-ZK-JR.','err');return}go.disabled=true;setStatus('RDW-gegevens worden opgehaald…');try{const r=await fetch('https://opendata.rdw.nl/resource/m9d7-ebf2.json?kenteken='+encodeURIComponent(plate),{headers:{Accept:'application/json'}});if(!r.ok)throw new Error('RDW');const rows=await r.json();if(!rows.length){setStatus('Geen voertuig gevonden voor dit kenteken.','err');return}const d=rows[0];const x={make:d.merk,model:d.handelsbenaming,year:d.datum_eerste_toelating?String(d.datum_eerste_toelating).slice(0,4):null,engine:d.cilinderinhoud?d.cilinderinhoud+' cc / '+(d.aantal_cilinders||'')+' cil.':null,fuel:d.brandstof_1,power:d.vermogen_metriek_pk?d.vermogen_metriek_pk+' pk':null,torque:null,drive:null,gearbox:null,body:d.inrichting,country:'Nederland',source:'RDW Open Data'};render(x,plate);setStatus('Kenteken gevonden. De basischeck is klaar.','ok')}catch(e){setStatus('De RDW-koppeling kon nu niet worden bereikt. Probeer opnieuw.','err')}finally{go.disabled=false}}
+go.onclick=search;vin.addEventListener('keydown',e=>e.key==='Enter'&&search());
+</script>
+<style>
+.demo-checkout-overlay{position:fixed;inset:0;background:rgba(5,8,13,.96);z-index:9999;display:none;overflow:auto}
+.demo-checkout{max-width:900px;margin:50px auto;padding:24px}
+.demo-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px}
+.demo-back{background:transparent;border:1px solid #394554;color:#fff;border-radius:10px;padding:10px 15px;cursor:pointer}
+.demo-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:20px}
+.demo-box{background:#111820;border:1px solid #27313d;border-radius:18px;padding:24px}
+.demo-field{display:block;width:100%;box-sizing:border-box;background:#0b1117;border:1px solid #303b48;color:#fff;border-radius:10px;padding:13px;margin:8px 0 16px}
+.demo-pay{width:100%;padding:16px;border:0;border-radius:12px;background:#fff;color:#090d12;font-weight:800;font-size:16px;cursor:pointer}
+.demo-note{background:#17130a;border:1px solid #6a5217;color:#e9d18b;padding:13px;border-radius:10px;font-size:13px}
+.demo-success{display:none;text-align:center;padding:35px}
+.demo-price{font-size:34px;font-weight:800}
+@media(max-width:750px){.demo-grid{grid-template-columns:1fr}.demo-checkout{margin:10px auto}}
+</style>
+
+<div id="demoCheckout" class="demo-checkout-overlay">
+  <div class="demo-checkout">
+    <div class="demo-top">
+      <div>
+        <div class="eyebrow">AUTOCHECK AI</div>
+        <h1 style="margin:4px 0">Volledig rapport</h1>
+      </div>
+      <button class="demo-back" onclick="closeDemoCheckout()">← Terug</button>
+    </div>
+
+    <div id="demoPayView" class="demo-grid">
+      <div class="demo-box">
+        <h2>Demo betaalpagina</h2>
+        <p class="muted">Dit is de testomgeving. Er wordt geen echte betaling uitgevoerd.</p>
+        <label>E-mail</label>
+        <input class="demo-field" id="demoEmail" type="email" placeholder="jouw@email.nl">
+        <label>Voertuig</label>
+        <input class="demo-field" id="demoVehicle" readonly>
+        <div class="demo-note">DEMO — geen echte bank-, kaart- of betaalgegevens invullen.</div>
+        <br>
+        <button class="demo-pay" onclick="completeDemoPayment()">Demo betaling bevestigen · €7,95</button>
+      </div>
+
+      <div class="demo-box">
+        <span class="badge">AUTOCHECK AI RAPPORT</span>
+        <h2>Volledig voertuigrapport</h2>
+        <p>✓ Voertuiggegevens</p>
+        <p>✓ Technische specificaties</p>
+        <p>✓ Kilometerhistorie*</p>
+        <p>✓ Schadehistorie*</p>
+        <p>✓ Import & registratie*</p>
+        <p>✓ Recalls</p>
+        <p>✓ Bekende aandachtspunten</p>
+        <p>✓ AutoCheck AI-analyse</p>
+        <hr style="border-color:#29323d">
+        <div class="demo-price">€7,95</div>
+        <small class="muted">* afhankelijk van beschikbare databronnen</small>
+      </div>
+    </div>
+
+    <div id="demoSuccess" class="demo-box demo-success">
+      <div style="font-size:48px">✓</div>
+      <h2>Demo betaling geslaagd</h2>
+      <p>Het volledige rapport is nu ontgrendeld voor:</p>
+      <h3 id="demoPaidVehicle"></h3>
+      <button class="demo-pay" onclick="unlockDemoReport()">Volledig rapport bekijken</button>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  let demoVehicle = '';
+
+  function findVehicle(){
+    const selectors=['#vehicle','#vinInput','#kenteken','#plate','#searchInput'];
+    for(const s of selectors){
+      const el=document.querySelector(s);
+      if(el && el.value) return el.value.trim();
+    }
+    const candidates=document.querySelectorAll('input');
+    for(const el of candidates) if(el.value.trim()) return el.value.trim();
+    return 'Voertuig';
+  }
+
+  window.openDemoCheckout=function(){
+    demoVehicle=findVehicle();
+    document.getElementById('demoVehicle').value=demoVehicle || 'Voertuig';
+    document.getElementById('demoCheckout').style.display='block';
+    document.body.style.overflow='hidden';
+  };
+
+  window.closeDemoCheckout=function(){
+    document.getElementById('demoCheckout').style.display='none';
+    document.body.style.overflow='';
+  };
+
+  window.completeDemoPayment=function(){
+    document.getElementById('demoPayView').style.display='none';
+    document.getElementById('demoSuccess').style.display='block';
+    document.getElementById('demoPaidVehicle').textContent=demoVehicle;
+    sessionStorage.setItem('autocheck_demo_paid','true');
+  };
+
+  window.unlockDemoReport=function(){
+    closeDemoCheckout();
+    // Make any existing paid/full-report sections visible.
+    document.querySelectorAll('[data-paid-report], .paid-report, #fullReport, #paidReport').forEach(el=>el.style.display='block');
+    const msg=document.createElement('div');
+    msg.style.cssText='position:fixed;bottom:20px;right:20px;z-index:10000;background:#fff;color:#111;padding:15px 18px;border-radius:12px;font-weight:700;box-shadow:0 10px 30px #0005';
+    msg.textContent='Demo: volledig rapport ontgrendeld';
+    document.body.appendChild(msg);
+    setTimeout(()=>msg.remove(),3000);
+  };
+
+  // Make common full-report/product buttons open the demo checkout.
+  document.addEventListener('click',function(e){
+    const btn=e.target.closest('button,a');
+    if(!btn) return;
+    const txt=(btn.textContent||'').toLowerCase();
+    if(txt.includes('volledig rapport') || txt.includes('rapport openen') || txt.includes('€7,95') || txt.includes('7,95')){
+      const href=btn.getAttribute('href');
+      if(href && href!=='#' && !href.startsWith('javascript:')) return;
+      e.preventDefault();
+      openDemoCheckout();
+    }
+  },true);
+})();
+</script>
+
+</body></html>
